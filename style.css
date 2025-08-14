@@ -1,284 +1,122 @@
+/* Reset básico */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
-    background-color: #f7e1f2;
-    align-items: center;
-    text-align: center;
-    overflow-x: hidden; /* impede estouro horizontal */
-
-}
-
-
-.imagens-row {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    margin-bottom: 10px;
-}
-
-
-.img-detail {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
-}
-
-.title {
-
-    font-size: 2em;
-    color: #f7f1e1;
-}
-
-:root{
+:root {
     --header-height: 70px;
     --footer-height: 50px;
+    --cor-fundo: #f7e1f2;
+    --cor-header: #ce7095;
+    --cor-caixa: #ffb2c1;
+    --cor-detalhe: #b5895a;
 }
 
+/* Estilo geral */
+body {
+    background-color: var(--cor-fundo);
+    font-family: Arial, sans-serif;
+    text-align: center;
+    overflow-x: hidden;
+}
+
+/* Cabeçalho */
 header {
-    width: 100%;
+    background-color: var(--cor-header);
+    color: #fff;
     height: var(--header-height);
-    background-color: #ce7095;
+    display: flex;
     align-items: center;
     justify-content: center;
-    display: flex;
-    position: fixed;
+    padding: 0 1rem;
+    position: sticky; /* Fica fixo, mas não sobrepõe conteúdo */
     top: 0;
-    left: 0;
-    right: 0;
     z-index: 1000;
 }
 
-@media (max-width: 480px) {
-    html, body {
-        overflow-x: hidden; /* garante que qualquer estouro seja escondido */
-    }
-
-    .header {
-        height: 60px;
-        /* ajusta para caber melhor */
-    }
-
-    .artesanatos {
-        width: 98%;
-        padding: 8px;
-        margin: 4px auto;
-        overflow: hidden; /* evita estouro horizontal */
-    }
-
-    .imagens-row {
-        display: flex;
-        flex-direction: row;
-        gap: 8px;
-        margin: 0 auto 8px;
-        justify-content: center;
-        padding: 0 6px;
-        box-sizing: border-box;
-        flex-wrap: nowrap;
-        width: 100%;
-        overflow: hidden; /* protege contra itens muito largos */
-    }
-
-    .img-detail {
-        gap: 6px;
-        flex: 1 1 0; /* permite encolher e dividir espaço igualmente */
-        min-width: 0; /* permite encolher sem causar overflow */
-        max-width: calc(50% - 4px);
-        box-sizing: border-box;
-        overflow: hidden;
-    }
-
-    /* regras estritas para a imagem: nunca ultrapassar o contêiner */
-    .imagens, img.imagens {
-        max-width: 100% !important; /* nunca maior que o pai */
-        width: auto !important;      /* não forçar a 100% que pode esticar */
-        height: auto !important;
-        display: block !important;
-        object-fit: contain !important;
-    }
-
-    /* garantir que o details não force overflow horizontal */
-    details.pergaminho, details.pergaminho .conteudo {
-        width: 100%;
-        max-width: 100%;
-        box-sizing: border-box;
-        overflow-wrap: break-word;
-    }
-
-    .title {
-        font-size: 1.2em;
-    }
-
-    header {
-        height: auto;
-        padding: 8px 0;
-    }
-
-    main {
-        padding: 0;
-    }
+.title {
+    font-size: clamp(1.2rem, 4vw, 2rem);
 }
 
-/* Proteção extra: limita altura das imagens e garante dimensionamento estável no mobile */
-@media (max-width: 480px) {
-    .imagens-row {
-        /* permitir quebra como último recurso para evitar estouro */
-        flex-wrap: wrap;
-    }
-
-    .img-detail {
-        flex: 0 0 48%;
-        max-width: 48%;
-    }
-
-    /* limita a largura e altura da imagem para não estourar a tela */
-    .imagens, img.imagens {
-        max-width: 100% !important;
-        width: 100% !important;
-        height: auto !important;
-        max-height: 45vh !important; /* limita a altura visível */
-        object-fit: contain !important;
-    }
-}
-
-.artesanatos {
-    background-color: #ffb2c1;
-    width: 80%;
-    padding: 20px;
-    margin: 0 auto;
-    border-radius: 10px;
-    margin: 10px;
-}
+/* Conteúdo principal */
 main {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding-top: calc(var(--header-height) + 10px);
-    padding-bottom: calc(var(--footer-height) + 10px);
+    padding: 1rem;
 }
+
+/* Blocos de artesanato */
+.artesanatos {
+    background-color: var(--cor-caixa);
+    padding: 1rem;
+    margin: 1rem auto;
+    border-radius: 10px;
+    max-width: 1000px;
+}
+
+/* Linha de imagens */
+.imagens-row {
+    display: flex;
+    flex-wrap: wrap; /* Quebra no celular */
+    gap: 1rem;
+    justify-content: center;
+}
+
+/* Cada bloco */
+.img-detail {
+    flex: 1 1 calc(50% - 1rem); /* 2 colunas no celular */
+    max-width: 300px;
+    text-align: center;
+}
+
+/* Imagens responsivas */
 .imagens {
     width: 100%;
-    max-width: 100%;
     height: auto;
     border-radius: 20px;
-    border: #b5895a double 5px;
+    border: double 5px var(--cor-detalhe);
 }
-/* ===== ESTILO GERAL DO DETAILS ===== */
+
+/* Details */
 details.pergaminho {
     background-color: #f7f1e1;
     border-radius: 12px;
-    padding: 8px;
-    width: 90%;
-    max-width: 320px;
+    border: 2px solid var(--cor-detalhe);
+    padding: 0.5rem;
     font-family: 'Georgia', serif;
-    border: 2px solid #b5895a;
-    width: 80%;
 }
 
-/* Restaurar seta padrão: removemos a regra que escondia o marker */
-
-/* Summary clicável */
 summary {
     cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 8px;
     font-weight: bold;
     color: #5a3b18;
 }
 
-/* Garantir que a seta nativa do details esteja visível */
-summary::-webkit-details-marker {
-    display: inline-block;
-    color: inherit;
-}
-summary::marker {
-    color: inherit;
-}
-
-/* Remover a seta personalizada para usar a seta nativa do browser */
-.chev {
-    display: none !important;
-}
-details[open] .chev {
-    display: none !important;
-}
-
-/* ===== CONTEÚDO COM EFEITO PERGAMINHO ===== */
+/* Conteúdo animado */
 .conteudo {
-    overflow: hidden;
-    max-height: 0;
-    opacity: 0;
-    padding: 0;
-    margin-top: 8px;
-    transition: max-height 0.8s ease, opacity 0.8s ease;
-    
-    /* remover textura/background image */
-    background: transparent;
-    border: 2px solid #b5895a;
-    border-radius: 10px;
-    box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
-    
-    /* Para o efeito de desenrolar */
-    clip-path: inset(0 0 100% 0 round 10px);
-    transition: max-height 0.8s ease, opacity 0.8s ease, clip-path 0.8s ease;
+    margin-top: 0.5rem;
+    transition: all 0.4s ease;
 }
 
-details[open] .conteudo {
-    max-height: 500px; /* grande o suficiente para o conteúdo */
-    opacity: 1;
-    padding: 12px;
-    clip-path: inset(0 0 0 0 round 10px); /* revela de cima para baixo */
-}
-
-/* Regras de proteção finais para evitar estouro */
-html, body {
-    max-width: 100%;
-    overflow-x: hidden;
-}
-
-/* Força imagens a caberem no pai */
-img.imagens, .imagens {
-    width: 100% !important;
-    max-width: 100% !important;
-    height: auto !important;
-    display: block !important;
-    box-sizing: border-box !important;
-}
-
-/* Ajustes nos containers para evitar conteúdo forçando largura */
-.imagens-row, .img-detail, .artesanatos {
-    box-sizing: border-box !important;
-    overflow: hidden !important;
-}
-
-/* Garante que details não façam o container expandir */
-details.pergaminho, details.pergaminho .conteudo, summary {
-    max-width: 100% !important;
-    width: 100% !important;
-    box-sizing: border-box !important;
-}
-
-/* pequena margem para o body em telas pequenas */
-@media (max-width: 480px) {
-    body { padding: 0 4px; }
-    :root{ --header-height: 60px; --footer-height: 50px; }
-}
-
+/* Rodapé */
 footer {
-    left: 0;
-    right: 0;
-    bottom: 0;
+    background-color: var(--cor-header);
+    color: white;
     height: var(--footer-height);
-    background-color: #ce7095;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #ffffff;
-    z-index: 999;
+    font-size: 0.9rem;
+}
+
+/* Ajustes para telas menores */
+@media (max-width: 480px) {
+    :root {
+        --header-height: 60px;
+        --footer-height: 45px;
+    }
+    .img-detail {
+        flex: 1 1 100%; /* 1 por linha no celular muito pequeno */
+        max-width: none;
+    }
 }
