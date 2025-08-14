@@ -167,10 +167,7 @@ details.pergaminho {
     border: 2px solid #b5895a;
 }
 
-/* Remove a seta padrão */
-summary::-webkit-details-marker {
-    display: none;
-}
+/* Restaurar seta padrão: removemos a regra que escondia o marker */
 
 /* Summary clicável */
 summary {
@@ -182,18 +179,21 @@ summary {
     color: #5a3b18;
 }
 
-/* ===== SETA PERSONALIZADA ===== */
+/* Garantir que a seta nativa do details esteja visível */
+summary::-webkit-details-marker {
+    display: inline-block;
+    color: inherit;
+}
+summary::marker {
+    color: inherit;
+}
+
+/* Remover a seta personalizada para usar a seta nativa do browser */
 .chev {
-    width: 9px;
-    height: 9px;
-    border-right: 3px solid #8b5a2b;
-    border-bottom: 3px solid #8b5a2b;
-    transform: rotate(-45deg);
-    transition: transform 0.4s ease;
-    filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.3));
+    display: none !important;
 }
 details[open] .chev {
-    transform: rotate(45deg); /* aponta para baixo */
+    display: none !important;
 }
 
 /* ===== CONTEÚDO COM EFEITO PERGAMINHO ===== */
